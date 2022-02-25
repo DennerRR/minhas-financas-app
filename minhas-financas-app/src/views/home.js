@@ -1,21 +1,26 @@
 import React from 'react'
-import axios from 'axios'
+import UsuarioService from '../app/service/usuarioService'
+import LocalStorageService from '../app/service/localStorageService'
 
 class Home extends React.Component{
     state ={
         saldo: 0
     }
+    constructor(){
+        super()
+        this.usuarioService = new UsuarioService()
+    }
 
     componentDidMount(){
-        const usuarioLogadoString = localStorage.getItem('_usuario_logado')
-        const usuarioLogado = JSON.parse(usuarioLogadoString)
+        const usuarioLogado = LocalStorageService.obterItem('_usuario_logado')
 
-        axios.get(`http://localhost:8080/api/usuarios/saldo/${usuarioLogado.id}`)
-        .then( Response => {
-            this.setState({saldo: Response.data})
-        }).catch(error =>{
-            console.error(error.Response)
-        })
+        this.usuarioService
+            .obterSaldoPorUsuario(usuarioLogado.id)
+            .then( Response => {
+                this.setState({saldo: Response.data})
+            }).catch(error =>{
+                console.error(error.Response)
+            })
     }
 
     render(){

@@ -1,9 +1,20 @@
 import React from 'react'
+import axios from 'axios'
 
 class Home extends React.Component{
     state ={
         saldo: 0
     }
+
+    componentDidMount(){
+        axios.get('http://localhost:8080/api/usuarios/saldo/4')
+        .then( Response => {
+            this.setState({saldo: Response.data})
+        }).catch(error =>{
+            console.error(error.Response)
+        })
+    }
+
     render(){
         return(
             <div className="jumbotron">

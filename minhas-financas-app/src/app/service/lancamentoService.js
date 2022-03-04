@@ -11,17 +11,21 @@ export default class LancamentoService extends ApiService{
         let params = `?ano=${LancamentoFiltro.ano}`
 
         if(LancamentoFiltro.mes){
-            params = '${params}&mes=${LancamentoFiltro.mes}'
+            params = `${params}&mes=${LancamentoFiltro.mes}`
         }
 
         if(LancamentoFiltro.tipo){
-            params = '${params}&tipo=${LancamentoFiltro.tipo}'
+            params = `${params}&tipo=${LancamentoFiltro.tipo}`
         }
         if(LancamentoFiltro.status){
-            params = '${params}&status=${LancamentoFiltro.status}'
+            params = `${params}&status=${LancamentoFiltro.status}`
+        }
+        if(LancamentoFiltro.usuario){
+            params =`${params}&usuario=${LancamentoFiltro.usuario}`
+
         }
 
         
-        return this.get('/buscar/${params}')
+        return this.get(params)
     }
 }

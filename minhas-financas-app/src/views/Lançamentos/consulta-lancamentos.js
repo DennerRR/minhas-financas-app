@@ -16,6 +16,7 @@ class ConsultaLancamentos extends React.Component{
         ano:'',
         mes:'',
         tipo:'',
+        descricao:'',
         lancamentos: []
     }
 
@@ -30,6 +31,7 @@ class ConsultaLancamentos extends React.Component{
            ano:this.state.ano,
            mes: this.state.mes,
            tipo: this.state.tipo,
+           descricao: this.state.descricao,
            usuario: usuarioLogado.id
        }
        this.service
@@ -44,28 +46,9 @@ class ConsultaLancamentos extends React.Component{
     render(){
 
         
-        const meses = [
-            {Label: 'Selecione...', value: ''},
-            {Label: 'Janeiro', value: 1},
-            {Label: 'Fevereiro', value: 2},
-            {Label: 'Março', value: 3},
-            {Label: 'Abril', value: 4},
-            {Label: 'Maio', value: 5},
-            {Label: 'Junho', value: 6},
-            {Label: 'Julho', value: 7},
-            {Label: 'Agosto', value: 8},
-            {Label: 'Setembro', value: 9},
-            {Label: 'Outubro', value: 10},
-            {Label: 'Novembro', value: 11},
-            {Label: 'Dezembro', value: 12}
-            
-        ]
-        const tipos = [
-            {Label: 'Selecione...', value: ''},
-            {Label: 'Despesa', value: 'DESPESA'},
-            {Label: 'Receita', value: 'RECEITA'}
-            
-        ]
+        const meses = this.service.obterListaMeses();
+
+        const tipos = this. service.obterListaTipos();
         
         return(
             <Card title="Consulta Lançamentos">
@@ -75,7 +58,7 @@ class ConsultaLancamentos extends React.Component{
                             <FormGroup htmlFor="inputAno" Label="Ano: *">
                                 <input type="text" 
                                        className="form-control" 
-                                       id ="InputAno"
+                                       id ="inputAno"
                                        value={this.state.ano}
                                        onChange={e => this.setState({ano: e.target.value})}
                                        placeholder="Digite o Ano"/>
@@ -87,6 +70,15 @@ class ConsultaLancamentos extends React.Component{
                                             value={this.state.mes}
                                             onChange={e => this.setState({mes: e.target.value})} 
                                             lista={meses} />
+                            </FormGroup>
+                            
+                            <FormGroup htmlFor="inputDesc" Label="Descrição: ">
+                                <input type="text" 
+                                       className="form-control" 
+                                       id ="inputDesc"
+                                       value={this.state.descricao}
+                                       onChange={e => this.setState({descricao: e.target.value})}
+                                       placeholder="Digite a descrição"/>
                             </FormGroup>
 
                             <FormGroup htmlFor="inputTipo" Label="Tipo Lançamento: ">
@@ -106,7 +98,7 @@ class ConsultaLancamentos extends React.Component{
                 <div className="row">
                     <div className="col-md-12">
                         <div className="bs-component">
-                            <LancamentosTable lancamentos={this.state.lancamentos}/>
+                            <LancamentosTable Lancamentos={this.state.lancamentos}/>
                         </div>
                     </div>
                 </div>

@@ -31,7 +31,6 @@ export default props =>{
             </thead>
             <tbody>
                 {rows}
-
             </tbody>
         </table>
     )
